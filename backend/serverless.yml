@@ -1,0 +1,38 @@
+org: fe24school
+service: message-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::575935530538:role/lecture-role
+
+build:
+  esbuild:
+    minify: true
+
+package:
+  individually: true
+
+functions:
+  GetAllMessages:
+    handler: functions/GetAllMessages/index.handler
+    events:
+      - httpApi:
+          path: /messages
+          method: GET
+  
+  CreateMessage:
+    handler: functions/CreateMessage/index.handler
+    events:
+      - httpApi:
+          path: /messages
+          method: POST
+  
+  AddMessage:
+    handler: functions/ChangeMessage/index.handler
+    events:
+      - httpApi:
+          path: /messages
+          method: PUT

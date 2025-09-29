@@ -1,0 +1,437 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "GetAllMessagesLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/message-api-dev-GetAllMessages"
+      }
+    },
+    "CreateMessageLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/message-api-dev-CreateMessage"
+      }
+    },
+    "AddMessageLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/message-api-dev-AddMessage"
+      }
+    },
+    "GetAllMessagesLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
+          "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-GetAllMessages.zip"
+        },
+        "Handler": "functions/GetAllMessages/index.handler",
+        "Runtime": "nodejs20.x",
+        "FunctionName": "message-api-dev-GetAllMessages",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "NODE_OPTIONS": "--enable-source-maps"
+          }
+        },
+        "Role": "arn:aws:iam::575935530538:role/lecture-role"
+      },
+      "DependsOn": [
+        "GetAllMessagesLogGroup"
+      ]
+    },
+    "CreateMessageLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
+          "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-CreateMessage.zip"
+        },
+        "Handler": "functions/CreateMessage/index.handler",
+        "Runtime": "nodejs20.x",
+        "FunctionName": "message-api-dev-CreateMessage",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "NODE_OPTIONS": "--enable-source-maps"
+          }
+        },
+        "Role": "arn:aws:iam::575935530538:role/lecture-role"
+      },
+      "DependsOn": [
+        "CreateMessageLogGroup"
+      ]
+    },
+    "AddMessageLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
+          "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-AddMessage.zip"
+        },
+        "Handler": "functions/ChangeMessage/index.handler",
+        "Runtime": "nodejs20.x",
+        "FunctionName": "message-api-dev-AddMessage",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "NODE_OPTIONS": "--enable-source-maps"
+          }
+        },
+        "Role": "arn:aws:iam::575935530538:role/lecture-role"
+      },
+      "DependsOn": [
+        "AddMessageLogGroup"
+      ]
+    },
+    "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "CreateMessageLambdaFunction"
+        },
+        "CodeSha256": "iDJ69sRMQyS0lV2aIhAK+/zAer4AM1bnr27hAAo/v5o="
+      }
+    },
+    "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "GetAllMessagesLambdaFunction"
+        },
+        "CodeSha256": "CVI03UCGiXjTH9w+YCmC0ge427vkPXHfjHlcCUpde6Y="
+      }
+    },
+    "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "AddMessageLambdaFunction"
+        },
+        "CodeSha256": "sZb4nRyslShl8+TxCjiBTsNBWIWrcFL00AdrC61gPg8="
+      }
+    },
+    "HttpApi": {
+      "Type": "AWS::ApiGatewayV2::Api",
+      "Properties": {
+        "Name": "dev-message-api",
+        "ProtocolType": "HTTP"
+      }
+    },
+    "HttpApiStage": {
+      "Type": "AWS::ApiGatewayV2::Stage",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "StageName": "$default",
+        "AutoDeploy": true,
+        "DefaultRouteSettings": {
+          "DetailedMetricsEnabled": false
+        }
+      }
+    },
+    "GetAllMessagesLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetAllMessagesLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "HttpApi"
+              },
+              "/*"
+            ]
+          ]
+        }
+      }
+    },
+    "HttpApiIntegrationGetAllMessages": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "GetAllMessagesLambdaFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    },
+    "HttpApiRouteGetMessages": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "RouteKey": "GET /messages",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "HttpApiIntegrationGetAllMessages"
+              }
+            ]
+          ]
+        }
+      },
+      "DependsOn": "HttpApiIntegrationGetAllMessages"
+    },
+    "CreateMessageLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "CreateMessageLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "HttpApi"
+              },
+              "/*"
+            ]
+          ]
+        }
+      }
+    },
+    "HttpApiIntegrationCreateMessage": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "CreateMessageLambdaFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    },
+    "HttpApiRoutePostMessages": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "RouteKey": "POST /messages",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "HttpApiIntegrationCreateMessage"
+              }
+            ]
+          ]
+        }
+      },
+      "DependsOn": "HttpApiIntegrationCreateMessage"
+    },
+    "AddMessageLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "AddMessageLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "HttpApi"
+              },
+              "/*"
+            ]
+          ]
+        }
+      }
+    },
+    "HttpApiIntegrationAddMessage": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "AddMessageLambdaFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    },
+    "HttpApiRoutePutMessages": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "RouteKey": "PUT /messages",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "HttpApiIntegrationAddMessage"
+              }
+            ]
+          ]
+        }
+      },
+      "DependsOn": "HttpApiIntegrationAddMessage"
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
+      "Export": {
+        "Name": "sls-message-api-dev-ServerlessDeploymentBucketName"
+      }
+    },
+    "CreateMessageLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs"
+      },
+      "Export": {
+        "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
+      }
+    },
+    "GetAllMessagesLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE"
+      },
+      "Export": {
+        "Name": "sls-message-api-dev-GetAllMessagesLambdaFunctionQualifiedArn"
+      }
+    },
+    "AddMessageLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk"
+      },
+      "Export": {
+        "Name": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
+      }
+    },
+    "HttpApiId": {
+      "Description": "Id of the HTTP API",
+      "Value": {
+        "Ref": "HttpApi"
+      },
+      "Export": {
+        "Name": "sls-message-api-dev-HttpApiId"
+      }
+    },
+    "HttpApiUrl": {
+      "Description": "URL of the HTTP API",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "HttpApi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            }
+          ]
+        ]
+      },
+      "Export": {
+        "Name": "sls-message-api-dev-HttpApiUrl"
+      }
+    }
+  }
+}
