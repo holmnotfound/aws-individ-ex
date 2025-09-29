@@ -10,6 +10,21 @@
         "name": "aws",
         "runtime": "nodejs20.x",
         "region": "eu-north-1",
+        "httpApi": {
+          "cors": {
+            "allowedOrigins": [
+              "*"
+            ],
+            "allowedMethods": [
+              "GET",
+              "POST",
+              "PUT"
+            ],
+            "allowedHeaders": [
+              "Content-Type"
+            ]
+          }
+        },
         "iam": {
           "role": "arn:aws:iam::575935530538:role/lecture-role"
         },
@@ -42,7 +57,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                  "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-GetAllMessages.zip"
+                  "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-GetAllMessages.zip"
                 },
                 "Handler": "functions/GetAllMessages/index.handler",
                 "Runtime": "nodejs20.x",
@@ -65,7 +80,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                  "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-CreateMessage.zip"
+                  "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-CreateMessage.zip"
                 },
                 "Handler": "functions/CreateMessage/index.handler",
                 "Runtime": "nodejs20.x",
@@ -88,7 +103,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                  "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-AddMessage.zip"
+                  "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-AddMessage.zip"
                 },
                 "Handler": "functions/ChangeMessage/index.handler",
                 "Runtime": "nodejs20.x",
@@ -106,41 +121,55 @@
                 "AddMessageLogGroup"
               ]
             },
-            "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs": {
-              "Type": "AWS::Lambda::Version",
-              "DeletionPolicy": "Retain",
-              "Properties": {
-                "FunctionName": {
-                  "Ref": "CreateMessageLambdaFunction"
-                },
-                "CodeSha256": "iDJ69sRMQyS0lV2aIhAK+/zAer4AM1bnr27hAAo/v5o="
-              }
-            },
-            "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE": {
+            "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "GetAllMessagesLambdaFunction"
                 },
-                "CodeSha256": "CVI03UCGiXjTH9w+YCmC0ge427vkPXHfjHlcCUpde6Y="
+                "CodeSha256": "QmPldzvFxg23h2MXf9/9lc9xAHALHBM3hBjQlYrMYNg="
               }
             },
-            "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk": {
+            "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "CreateMessageLambdaFunction"
+                },
+                "CodeSha256": "5QflisSER0QMLiMHLm0GqpyPQgkBI3BUid/FVZKGyD8="
+              }
+            },
+            "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "AddMessageLambdaFunction"
                 },
-                "CodeSha256": "sZb4nRyslShl8+TxCjiBTsNBWIWrcFL00AdrC61gPg8="
+                "CodeSha256": "Z/FDQDp7wKqpEiQUMAebphgx9Ex8ykU+P7SvVpUTQgM="
               }
             },
             "HttpApi": {
               "Type": "AWS::ApiGatewayV2::Api",
               "Properties": {
                 "Name": "dev-message-api",
-                "ProtocolType": "HTTP"
+                "ProtocolType": "HTTP",
+                "CorsConfiguration": {
+                  "AllowCredentials": "<REDACTED>",
+                  "AllowHeaders": [
+                    "Content-Type"
+                  ],
+                  "AllowMethods": [
+                    "GET",
+                    "POST",
+                    "PUT"
+                  ],
+                  "AllowOrigins": [
+                    "*"
+                  ]
+                }
               }
             },
             "HttpApiStage": {
@@ -389,28 +418,28 @@
                 "Name": "sls-message-api-dev-ServerlessDeploymentBucketName"
               }
             },
-            "CreateMessageLambdaFunctionQualifiedArn": {
-              "Description": "Current Lambda function version",
-              "Value": {
-                "Ref": "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs"
-              },
-              "Export": {
-                "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
-              }
-            },
             "GetAllMessagesLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE"
+                "Ref": "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU"
               },
               "Export": {
                 "Name": "sls-message-api-dev-GetAllMessagesLambdaFunctionQualifiedArn"
               }
             },
+            "CreateMessageLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM"
+              },
+              "Export": {
+                "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
+              }
+            },
             "AddMessageLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk"
+                "Ref": "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw"
               },
               "Export": {
                 "Name": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
@@ -463,7 +492,7 @@
         "individually": true,
         "artifactsS3KeyDirname": "serverless/message-api/dev/code-artifacts",
         "deploymentBucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-        "artifactDirectoryName": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z"
+        "artifactDirectoryName": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z"
       },
       "functions": {
         "GetAllMessages": {
@@ -472,7 +501,8 @@
             {
               "httpApi": {
                 "path": "/messages",
-                "method": "GET"
+                "method": "GET",
+                "cors": true
               },
               "resolvedMethod": "GET",
               "resolvedPath": "/messages"
@@ -489,7 +519,7 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE"
+          "versionLogicalId": "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU"
         },
         "CreateMessage": {
           "handler": "functions/CreateMessage/index.handler",
@@ -497,7 +527,8 @@
             {
               "httpApi": {
                 "path": "/messages",
-                "method": "POST"
+                "method": "POST",
+                "cors": true
               },
               "resolvedMethod": "POST",
               "resolvedPath": "/messages"
@@ -514,7 +545,7 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs"
+          "versionLogicalId": "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM"
         },
         "AddMessage": {
           "handler": "functions/ChangeMessage/index.handler",
@@ -522,7 +553,8 @@
             {
               "httpApi": {
                 "path": "/messages",
-                "method": "PUT"
+                "method": "PUT",
+                "cors": true
               },
               "resolvedMethod": "PUT",
               "resolvedPath": "/messages"
@@ -539,7 +571,7 @@
           "timeout": 6,
           "runtime": "nodejs20.x",
           "vpc": {},
-          "versionLogicalId": "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk"
+          "versionLogicalId": "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw"
         }
       }
     },
@@ -547,6 +579,21 @@
       "name": "aws",
       "runtime": "nodejs20.x",
       "region": "eu-north-1",
+      "httpApi": {
+        "cors": {
+          "allowedOrigins": [
+            "*"
+          ],
+          "allowedMethods": [
+            "GET",
+            "POST",
+            "PUT"
+          ],
+          "allowedHeaders": [
+            "Content-Type"
+          ]
+        }
+      },
       "iam": {
         "role": "arn:aws:iam::575935530538:role/lecture-role"
       },
@@ -579,7 +626,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-GetAllMessages.zip"
+                "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-GetAllMessages.zip"
               },
               "Handler": "functions/GetAllMessages/index.handler",
               "Runtime": "nodejs20.x",
@@ -602,7 +649,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-CreateMessage.zip"
+                "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-CreateMessage.zip"
               },
               "Handler": "functions/CreateMessage/index.handler",
               "Runtime": "nodejs20.x",
@@ -625,7 +672,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-AddMessage.zip"
+                "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-AddMessage.zip"
               },
               "Handler": "functions/ChangeMessage/index.handler",
               "Runtime": "nodejs20.x",
@@ -643,41 +690,55 @@
               "AddMessageLogGroup"
             ]
           },
-          "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "CreateMessageLambdaFunction"
-              },
-              "CodeSha256": "iDJ69sRMQyS0lV2aIhAK+/zAer4AM1bnr27hAAo/v5o="
-            }
-          },
-          "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE": {
+          "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAllMessagesLambdaFunction"
               },
-              "CodeSha256": "CVI03UCGiXjTH9w+YCmC0ge427vkPXHfjHlcCUpde6Y="
+              "CodeSha256": "QmPldzvFxg23h2MXf9/9lc9xAHALHBM3hBjQlYrMYNg="
             }
           },
-          "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk": {
+          "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "CreateMessageLambdaFunction"
+              },
+              "CodeSha256": "5QflisSER0QMLiMHLm0GqpyPQgkBI3BUid/FVZKGyD8="
+            }
+          },
+          "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddMessageLambdaFunction"
               },
-              "CodeSha256": "sZb4nRyslShl8+TxCjiBTsNBWIWrcFL00AdrC61gPg8="
+              "CodeSha256": "Z/FDQDp7wKqpEiQUMAebphgx9Ex8ykU+P7SvVpUTQgM="
             }
           },
           "HttpApi": {
             "Type": "AWS::ApiGatewayV2::Api",
             "Properties": {
               "Name": "dev-message-api",
-              "ProtocolType": "HTTP"
+              "ProtocolType": "HTTP",
+              "CorsConfiguration": {
+                "AllowCredentials": "<REDACTED>",
+                "AllowHeaders": [
+                  "Content-Type"
+                ],
+                "AllowMethods": [
+                  "GET",
+                  "POST",
+                  "PUT"
+                ],
+                "AllowOrigins": [
+                  "*"
+                ]
+              }
             }
           },
           "HttpApiStage": {
@@ -926,28 +987,28 @@
               "Name": "sls-message-api-dev-ServerlessDeploymentBucketName"
             }
           },
-          "CreateMessageLambdaFunctionQualifiedArn": {
-            "Description": "Current Lambda function version",
-            "Value": {
-              "Ref": "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs"
-            },
-            "Export": {
-              "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
-            }
-          },
           "GetAllMessagesLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE"
+              "Ref": "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU"
             },
             "Export": {
               "Name": "sls-message-api-dev-GetAllMessagesLambdaFunctionQualifiedArn"
             }
           },
+          "CreateMessageLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM"
+            },
+            "Export": {
+              "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
+            }
+          },
           "AddMessageLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk"
+              "Ref": "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw"
             },
             "Export": {
               "Name": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
@@ -1000,7 +1061,7 @@
       "serviceProvider": null,
       "instanceParameters": null
     },
-    "serviceRawFile": "org: fe24school\nservice: message-api\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: eu-north-1\n  iam:\n    role: arn:aws:iam::575935530538:role/lecture-role\n\nbuild:\n  esbuild:\n    minify: true\n\npackage:\n  individually: true\n\nfunctions:\n  GetAllMessages:\n    handler: functions/GetAllMessages/index.handler\n    events:\n      - httpApi:\n          path: /messages\n          method: GET\n  \n  CreateMessage:\n    handler: functions/CreateMessage/index.handler\n    events:\n      - httpApi:\n          path: /messages\n          method: POST\n  \n  AddMessage:\n    handler: functions/ChangeMessage/index.handler\n    events:\n      - httpApi:\n          path: /messages\n          method: PUT\n",
+    "serviceRawFile": "org: fe24school\nservice: message-api\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  region: eu-north-1\n  httpApi:\n    cors:\n      allowedOrigins:\n        - '*'\n      allowedMethods:\n        - GET\n        - POST\n        - PUT\n      allowedHeaders:\n        - Content-Type\n\n  iam:\n    role: arn:aws:iam::575935530538:role/lecture-role\n\nbuild:\n  esbuild:\n    minify: true\n\npackage:\n  individually: true\n\nfunctions:\n  GetAllMessages:\n    handler: functions/GetAllMessages/index.handler\n    events:\n      - httpApi:\n          path: /messages\n          method: GET\n          cors: true\n  \n  CreateMessage:\n    handler: functions/CreateMessage/index.handler\n    events:\n      - httpApi:\n          path: /messages\n          method: POST\n          cors: true\n  \n  AddMessage:\n    handler: functions/ChangeMessage/index.handler\n    events:\n      - httpApi:\n          path: /messages\n          method: PUT\n          cors: true\n",
     "command": [
       "deploy"
     ],
@@ -1013,18 +1074,18 @@
     "serviceProviderAwsCfStackName": "message-api-dev",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:eu-north-1:575935530538:stack/message-api-dev/4b6e3670-9d1a-11f0-a608-0eb77bf76bf7",
     "serviceProviderAwsCfStackCreated": "2025-09-29T09:54:30.973Z",
-    "serviceProviderAwsCfStackUpdated": "2025-09-29T10:49:43.391Z",
+    "serviceProviderAwsCfStackUpdated": "2025-09-29T13:15:44.174Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "AddMessageLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:eu-north-1:575935530538:function:message-api-dev-AddMessage:7",
+        "OutputValue": "arn:aws:lambda:eu-north-1:575935530538:function:message-api-dev-AddMessage:10",
         "Description": "Current Lambda function version",
         "ExportName": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
       },
       {
         "OutputKey": "GetAllMessagesLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:eu-north-1:575935530538:function:message-api-dev-GetAllMessages:8",
+        "OutputValue": "arn:aws:lambda:eu-north-1:575935530538:function:message-api-dev-GetAllMessages:11",
         "Description": "Current Lambda function version",
         "ExportName": "sls-message-api-dev-GetAllMessagesLambdaFunctionQualifiedArn"
       },
@@ -1036,7 +1097,7 @@
       },
       {
         "OutputKey": "CreateMessageLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:eu-north-1:575935530538:function:message-api-dev-CreateMessage:7",
+        "OutputValue": "arn:aws:lambda:eu-north-1:575935530538:function:message-api-dev-CreateMessage:10",
         "Description": "Current Lambda function version",
         "ExportName": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
       },
@@ -1079,7 +1140,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-              "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-GetAllMessages.zip"
+              "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-GetAllMessages.zip"
             },
             "Handler": "functions/GetAllMessages/index.handler",
             "Runtime": "nodejs20.x",
@@ -1102,7 +1163,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-              "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-CreateMessage.zip"
+              "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-CreateMessage.zip"
             },
             "Handler": "functions/CreateMessage/index.handler",
             "Runtime": "nodejs20.x",
@@ -1125,7 +1186,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-              "S3Key": "serverless/message-api/dev/1759145757118-2025-09-29T11:35:57.118Z/message-api-AddMessage.zip"
+              "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-AddMessage.zip"
             },
             "Handler": "functions/ChangeMessage/index.handler",
             "Runtime": "nodejs20.x",
@@ -1143,41 +1204,54 @@
             "AddMessageLogGroup"
           ]
         },
-        "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs": {
-          "Type": "AWS::Lambda::Version",
-          "DeletionPolicy": "Retain",
-          "Properties": {
-            "FunctionName": {
-              "Ref": "CreateMessageLambdaFunction"
-            },
-            "CodeSha256": "iDJ69sRMQyS0lV2aIhAK+/zAer4AM1bnr27hAAo/v5o="
-          }
-        },
-        "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE": {
+        "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "GetAllMessagesLambdaFunction"
             },
-            "CodeSha256": "CVI03UCGiXjTH9w+YCmC0ge427vkPXHfjHlcCUpde6Y="
+            "CodeSha256": "QmPldzvFxg23h2MXf9/9lc9xAHALHBM3hBjQlYrMYNg="
           }
         },
-        "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk": {
+        "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM": {
+          "Type": "AWS::Lambda::Version",
+          "DeletionPolicy": "Retain",
+          "Properties": {
+            "FunctionName": {
+              "Ref": "CreateMessageLambdaFunction"
+            },
+            "CodeSha256": "5QflisSER0QMLiMHLm0GqpyPQgkBI3BUid/FVZKGyD8="
+          }
+        },
+        "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "AddMessageLambdaFunction"
             },
-            "CodeSha256": "sZb4nRyslShl8+TxCjiBTsNBWIWrcFL00AdrC61gPg8="
+            "CodeSha256": "Z/FDQDp7wKqpEiQUMAebphgx9Ex8ykU+P7SvVpUTQgM="
           }
         },
         "HttpApi": {
           "Type": "AWS::ApiGatewayV2::Api",
           "Properties": {
             "Name": "dev-message-api",
-            "ProtocolType": "HTTP"
+            "ProtocolType": "HTTP",
+            "CorsConfiguration": {
+              "AllowHeaders": [
+                "Content-Type"
+              ],
+              "AllowMethods": [
+                "GET",
+                "POST",
+                "PUT"
+              ],
+              "AllowOrigins": [
+                "*"
+              ]
+            }
           }
         },
         "HttpApiStage": {
@@ -1426,28 +1500,28 @@
             "Name": "sls-message-api-dev-ServerlessDeploymentBucketName"
           }
         },
-        "CreateMessageLambdaFunctionQualifiedArn": {
-          "Description": "Current Lambda function version",
-          "Value": {
-            "Ref": "CreateMessageLambdaVersionGRXtofcOYrHCBKlpyVTk234arSjhL4f0OQQTKPlJs"
-          },
-          "Export": {
-            "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
-          }
-        },
         "GetAllMessagesLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "GetAllMessagesLambdaVersioni540SPJ9eMoSwBjPa8LiePYSIOvio99VSqHHVE3fE"
+            "Ref": "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU"
           },
           "Export": {
             "Name": "sls-message-api-dev-GetAllMessagesLambdaFunctionQualifiedArn"
           }
         },
+        "CreateMessageLambdaFunctionQualifiedArn": {
+          "Description": "Current Lambda function version",
+          "Value": {
+            "Ref": "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM"
+          },
+          "Export": {
+            "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
+          }
+        },
         "AddMessageLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "AddMessageLambdaVersionSDgbvJ9uykaMWlJsV2dZKM5xYwDOmHB7xznQEBlk"
+            "Ref": "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw"
           },
           "Export": {
             "Name": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
