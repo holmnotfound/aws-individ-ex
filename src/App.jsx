@@ -1,8 +1,10 @@
-
+import LandingPage from './page/LandingPage'
 
 function App() {
   return(
-    <div className='hello'>hello World</div>
+    <section>
+      <LandingPage />
+    </section>
   )
 }
 

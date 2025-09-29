@@ -5,6 +5,17 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: eu-north-1
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+      allowedHeaders:
+        - Content-Type
+
   iam:
     role: arn:aws:iam::575935530538:role/lecture-role
 
@@ -22,6 +33,7 @@ functions:
       - httpApi:
           path: /messages
           method: GET
+          cors: true
   
   CreateMessage:
     handler: functions/CreateMessage/index.handler
@@ -29,6 +41,7 @@ functions:
       - httpApi:
           path: /messages
           method: POST
+          cors: true
   
   AddMessage:
     handler: functions/ChangeMessage/index.handler
@@ -36,3 +49,4 @@ functions:
       - httpApi:
           path: /messages
           method: PUT
+          cors: true
