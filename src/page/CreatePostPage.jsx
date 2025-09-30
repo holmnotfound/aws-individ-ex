@@ -1,15 +1,12 @@
 import NavBar from "../componments/NavBar/NavBar";
-import Messages from "../componments/Messages/Messages.jsx";
-//import MessageForm from "../componments/MessageForm/MessageForm.jsx";
-//import { fetchMessages } from "../services/api.js";
+import MessageForm from "../componments/MessageForm/MessageForm.jsx";
+import { fetchMessages } from "../services/api.js";
 import { useState, useEffect } from "react";
-import CreateMessageBtn from "../componments/CreateMessageBtn/CreateMessageBtn.jsx";
 
 
-
-function LandingPage() {
+function CreatePostPage() {
     const [messages, setMessages] = useState([]);
-    /*
+
   // Hämta meddelanden från API vid start
   useEffect(() => {
     fetchMessages().then((data) => setMessages(data));
@@ -23,21 +20,14 @@ function LandingPage() {
     console.log("Uppdaterad messages-array:", updated);
     return updated;
   });
-  <MessageForm onMessageCreated={handleNewMessage} />
-};*/
+};
 
   return (
     <section className="min-h-screen flex flex-col items-center bg-gray-100">
-      <NavBar /> 
-      <div>
-        <CreateMessageBtn />
-      </div>
-      <div className="w-full max-w-3xl mt-6 px-4">
-        <Messages messages={messages}  />
-      </div>
-      
+      <NavBar />
+      <MessageForm onMessageCreated={handleNewMessage} />
     </section>
   );
 }
 
-export default LandingPage;
+export default CreatePostPage;
