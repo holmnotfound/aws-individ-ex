@@ -50,12 +50,18 @@
               "LogGroupName": "/aws/lambda/message-api-dev-AddMessage"
             }
           },
+          "FilterUsersLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/message-api-dev-FilterUsers"
+            }
+          },
           "GetAllMessagesLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-GetAllMessages.zip"
+                "S3Key": "serverless/message-api/dev/1759429541317-2025-10-02T18:25:41.317Z/message-api-GetAllMessages.zip"
               },
               "Handler": "functions/GetAllMessages/index.handler",
               "Runtime": "nodejs20.x",
@@ -78,7 +84,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-CreateMessage.zip"
+                "S3Key": "serverless/message-api/dev/1759429541317-2025-10-02T18:25:41.317Z/message-api-CreateMessage.zip"
               },
               "Handler": "functions/CreateMessage/index.handler",
               "Runtime": "nodejs20.x",
@@ -101,7 +107,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-                "S3Key": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z/message-api-AddMessage.zip"
+                "S3Key": "serverless/message-api/dev/1759429541317-2025-10-02T18:25:41.317Z/message-api-AddMessage.zip"
               },
               "Handler": "functions/ChangeMessage/index.handler",
               "Runtime": "nodejs20.x",
@@ -119,34 +125,67 @@
               "AddMessageLogGroup"
             ]
           },
-          "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU": {
+          "FilterUsersLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
+                "S3Key": "serverless/message-api/dev/1759429541317-2025-10-02T18:25:41.317Z/message-api-FilterUsers.zip"
+              },
+              "Handler": "functions/FilterUsers/index.handler",
+              "Runtime": "nodejs20.x",
+              "FunctionName": "message-api-dev-FilterUsers",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "NODE_OPTIONS": "--enable-source-maps"
+                }
+              },
+              "Role": "arn:aws:iam::575935530538:role/lecture-role"
+            },
+            "DependsOn": [
+              "FilterUsersLogGroup"
+            ]
+          },
+          "GetAllMessagesLambdaVersionLQBKC80jUsKSoURKXlRXNA2ScJZl1cpJ8IzWCD7nho": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAllMessagesLambdaFunction"
               },
-              "CodeSha256": "QmPldzvFxg23h2MXf9/9lc9xAHALHBM3hBjQlYrMYNg="
+              "CodeSha256": "Fp6BDZRYMFbuIcDUiRnqqQLKven79TO1AxvjhMRIKX4="
             }
           },
-          "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM": {
-            "Type": "AWS::Lambda::Version",
-            "DeletionPolicy": "Retain",
-            "Properties": {
-              "FunctionName": {
-                "Ref": "CreateMessageLambdaFunction"
-              },
-              "CodeSha256": "5QflisSER0QMLiMHLm0GqpyPQgkBI3BUid/FVZKGyD8="
-            }
-          },
-          "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw": {
+          "AddMessageLambdaVersion1lG9X5KTDwGUzDLYjKASmDL0AxKFlQ0i5rElqLjWbWc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddMessageLambdaFunction"
               },
-              "CodeSha256": "Z/FDQDp7wKqpEiQUMAebphgx9Ex8ykU+P7SvVpUTQgM="
+              "CodeSha256": "JSgPrpM4rWveSCDRpqD/pKZsACLKTpVQJ32KoACtWRA="
+            }
+          },
+          "CreateMessageLambdaVersionTLrpPdGmdlZoCZRHWfUY3kE5KOYHRzr1njX2p9vY": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "CreateMessageLambdaFunction"
+              },
+              "CodeSha256": "7prswoxzkmPmm9oCU+rGriSNSKf7UZvxSpDgYbm4Yw4="
+            }
+          },
+          "FilterUsersLambdaVersionMsQsz6YN7NFDe0FkaRkwVxKpUkxgQ8NH0rPOQR6KxW0": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FilterUsersLambdaFunction"
+              },
+              "CodeSha256": "DjzJZzcE58iMKNpb/d4SJvtvkEgov8IpWYve91EU+zA="
             }
           },
           "HttpApi": {
@@ -397,6 +436,78 @@
               }
             },
             "DependsOn": "HttpApiIntegrationAddMessage"
+          },
+          "FilterUsersLambdaPermissionHttpApi": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "FilterUsersLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "HttpApiIntegrationFilterUsers": {
+            "Type": "AWS::ApiGatewayV2::Integration",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "IntegrationType": "AWS_PROXY",
+              "IntegrationUri": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"FilterUsersLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+              },
+              "PayloadFormatVersion": "2.0",
+              "TimeoutInMillis": 30000
+            }
+          },
+          "HttpApiRouteGetMessagesUsernameVar": {
+            "Type": "AWS::ApiGatewayV2::Route",
+            "Properties": {
+              "ApiId": {
+                "Ref": "HttpApi"
+              },
+              "RouteKey": "GET /messages/{username}",
+              "Target": {
+                "Fn::Join": [
+                  "/",
+                  [
+                    "integrations",
+                    {
+                      "Ref": "HttpApiIntegrationFilterUsers"
+                    }
+                  ]
+                ]
+              }
+            },
+            "DependsOn": "HttpApiIntegrationFilterUsers"
           }
         },
         "Outputs": {
@@ -409,28 +520,37 @@
           "GetAllMessagesLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU"
+              "Ref": "GetAllMessagesLambdaVersionLQBKC80jUsKSoURKXlRXNA2ScJZl1cpJ8IzWCD7nho"
             },
             "Export": {
               "Name": "sls-message-api-dev-GetAllMessagesLambdaFunctionQualifiedArn"
             }
           },
+          "AddMessageLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "AddMessageLambdaVersion1lG9X5KTDwGUzDLYjKASmDL0AxKFlQ0i5rElqLjWbWc"
+            },
+            "Export": {
+              "Name": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
+            }
+          },
           "CreateMessageLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM"
+              "Ref": "CreateMessageLambdaVersionTLrpPdGmdlZoCZRHWfUY3kE5KOYHRzr1njX2p9vY"
             },
             "Export": {
               "Name": "sls-message-api-dev-CreateMessageLambdaFunctionQualifiedArn"
             }
           },
-          "AddMessageLambdaFunctionQualifiedArn": {
+          "FilterUsersLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw"
+              "Ref": "FilterUsersLambdaVersionMsQsz6YN7NFDe0FkaRkwVxKpUkxgQ8NH0rPOQR6KxW0"
             },
             "Export": {
-              "Name": "sls-message-api-dev-AddMessageLambdaFunctionQualifiedArn"
+              "Name": "sls-message-api-dev-FilterUsersLambdaFunctionQualifiedArn"
             }
           },
           "HttpApiId": {
@@ -497,7 +617,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "GetAllMessagesLambdaVersionHvgWh2uIT2yOYTccGixknuGlgEEDgP9yGBpbMzm01rU"
+        "versionLogicalId": "GetAllMessagesLambdaVersionLQBKC80jUsKSoURKXlRXNA2ScJZl1cpJ8IzWCD7nho"
       },
       "CreateMessage": {
         "handler": "functions/CreateMessage/index.handler",
@@ -523,7 +643,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "CreateMessageLambdaVersionznLhlqQersX06GoGVE5SYkemCJzIYrsLy163gPmM"
+        "versionLogicalId": "CreateMessageLambdaVersionTLrpPdGmdlZoCZRHWfUY3kE5KOYHRzr1njX2p9vY"
       },
       "AddMessage": {
         "handler": "functions/ChangeMessage/index.handler",
@@ -549,7 +669,33 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "AddMessageLambdaVersionA5wakiDZmoFkNDMtj6064sSWmhllN1GsfuzvknQsw"
+        "versionLogicalId": "AddMessageLambdaVersion1lG9X5KTDwGUzDLYjKASmDL0AxKFlQ0i5rElqLjWbWc"
+      },
+      "FilterUsers": {
+        "handler": "functions/FilterUsers/index.handler",
+        "events": [
+          {
+            "httpApi": {
+              "path": "/messages/{username}",
+              "method": "GET",
+              "cors": true
+            },
+            "resolvedMethod": "GET",
+            "resolvedPath": "/messages/{username}"
+          }
+        ],
+        "name": "message-api-dev-FilterUsers",
+        "environment": {
+          "NODE_OPTIONS": "--enable-source-maps"
+        },
+        "package": {
+          "artifact": "/Users/emiliaholmqvist/aws-individ-ex/backend/.serverless/build/message-api-FilterUsers.zip"
+        },
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs20.x",
+        "vpc": {},
+        "versionLogicalId": "FilterUsersLambdaVersionMsQsz6YN7NFDe0FkaRkwVxKpUkxgQ8NH0rPOQR6KxW0"
       }
     },
     "configValidationMode": "warn",
@@ -569,7 +715,7 @@
         "individually": true,
         "artifactsS3KeyDirname": "serverless/message-api/dev/code-artifacts",
         "deploymentBucket": "serverless-framework-deployments-eu-north-1-2e08e381-16f1",
-        "artifactDirectoryName": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z"
+        "artifactDirectoryName": "serverless/message-api/dev/1759429541317-2025-10-02T18:25:41.317Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -585,7 +731,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/message-api/dev/1759152185563-2025-09-29T13:23:05.563Z",
+    "artifactDirectoryName": "serverless/message-api/dev/1759429541317-2025-10-02T18:25:41.317Z",
     "artifact": ""
   }
 }

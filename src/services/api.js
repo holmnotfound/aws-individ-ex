@@ -50,3 +50,23 @@ export async function updateMessage(id, newText) {
 
   return await response.json();
 }
+
+export async function fetchUsername(username) {
+  const response = await fetch(
+    `https://9t1p2ykl2h.execute-api.eu-north-1.amazonaws.com/messages/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    console.error("API-fel:", error);
+    throw new Error("Något gick fel vid hämtning");
+  }
+
+  return await response.json();
+}
