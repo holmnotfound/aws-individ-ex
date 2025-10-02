@@ -27,7 +27,8 @@ function MessageForm({ onMessageCreated }) {
       setUsername("");
       setText("");
     } catch (err) {
-      setError("Något gick fel vid skapandet av meddelandet.");
+  console.error(err);
+  setError("Något gick fel vid skapandet av meddelandet.");
     } finally {
       setLoading(false);
     }

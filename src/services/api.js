@@ -23,7 +23,7 @@ export async function postMessage(username, text) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, newText }),
+    body: JSON.stringify({ username, text }),
   });
 
   if (!response.ok) {
