@@ -4,7 +4,7 @@ import { unmarshall } from "@aws-sdk/util-dynamodb";
 const client = new DynamoDBClient({ region: "eu-north-1" });
 
 export const handler = async (event) => {
-  const username = event.pathParameters?.username; // <-- HÄR!
+  const username = event.pathParameters?.username;
 
   try {
     const command = new QueryCommand({
@@ -13,7 +13,7 @@ export const handler = async (event) => {
       ExpressionAttributeValues: {
         ":pk": { S: "Message" },
       },
-      FilterExpression: "username = :username", // Filter, om username inte är del av nyckel
+      FilterExpression: "username = :username",
       ExpressionAttributeValues: {
         ":pk": { S: "Message" },
         ":username": { S: username },
@@ -31,7 +31,10 @@ export const handler = async (event) => {
     console.error("Fel vid hämtning av meddelanden:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: "Fel vid hämtning.", error: error.message }),
+      body: JSON.stringify({
+        message: "Fel vid hämtning.",
+        error: error.message,
+      }),
     };
   }
 };

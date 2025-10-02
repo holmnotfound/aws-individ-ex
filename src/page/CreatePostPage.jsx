@@ -1,5 +1,6 @@
 import NavBar from "../componments/NavBar/NavBar";
 import MessageForm from "../componments/MessageForm/MessageForm.jsx";
+import Footer from "../componments/Footer/index.jsx";
 import { fetchMessages } from "../services/api.js";
 import { useState, useEffect } from "react";
 
@@ -24,6 +25,7 @@ function CreatePostPage() {
       <NavBar />
       <h2 className="text-xl font-bold mt-10">Skriv ett nytt meddelande</h2>
       <MessageForm onMessageCreated={handleNewMessage} />
+      <Footer/>
     </section>
   );
 }
