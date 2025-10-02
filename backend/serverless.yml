@@ -50,3 +50,11 @@ functions:
           path: /messages
           method: PUT
           cors: true
+  
+  FilterUsers:
+    handler: functions/FilterUsers/index.handler
+    events:
+      - httpApi:
+          path: /messages/{username}
+          method: GET
+          cors: true
