@@ -2,7 +2,7 @@ import NavBar from "../componments/NavBar/NavBar";
 import Messages from "../componments/Messages/Messages.jsx";
 import { useState} from "react";
 import CreateMessageBtn from "../componments/CreateMessageBtn/CreateMessageBtn.jsx";
-import FilterBtn from "../componments/FilterBtn/FilterBtn.jsx";
+import Footer from "../componments/Footer/index.jsx";
 
 
 
@@ -11,7 +11,7 @@ function LandingPage() {
 
 
   return (
-    <section className="min-h-screen flex flex-col items-center bg-gray-100">
+    <section className="min-h-screen flex flex-col items-center bg-gray-100 mb-20">
       <NavBar />
       <div>
         <CreateMessageBtn />
@@ -19,6 +19,7 @@ function LandingPage() {
       <div className="w-full max-w-4xl mt-6 px-4">
         <Messages messages={messages} />
       </div>
+      <Footer/>
     </section>
   );
 }
